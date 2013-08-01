@@ -1,29 +1,32 @@
 package br.marins;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 import javassist.util.proxy.MethodHandler;
 
 public class SpyMethodHandler implements MethodHandler {
 
-	private Object spiedObject;
-	private XMockContext context;
+	private Map<Method, ReturnPromise> methodsReturnPromises = new HashMap<Method, ReturnPromise>();
 	
-	public SpyMethodHandler() {
-		this.context = XMockContext.getInstance();
-	}
+	public SpyMethodHandler() {}
 	
-	protected SpyMethodHandler(XMockContext context) {
-		this.context = context;
+	public SpyMethodHandler(Map<Method, ReturnPromise> methodsReturnPromises) {
+		this.methodsReturnPromises = methodsReturnPromises;
 	}
 	
 	@Override
 	public Object invoke(Object self, Method currentMethod, Method proceedMethod, Object[] args) {
-		return context.getMethodContext(self, currentMethod).execute();
+		return getReturnPromisse(currentMethod).getReturn(self);
 	}
-	
-	public void setSpiedObject(Object spiedObject) {
-		this.spiedObject = spiedObject;
+
+	public void addReturnPromise(ReturnPromise returnPromise) {
+		methodsReturnPromises.put(returnPromise.getMethod(), returnPromise);
+	}
+
+	public ReturnPromise getReturnPromisse(Method method) {
+		return methodsReturnPromises.get(method);
 	}
 
 }

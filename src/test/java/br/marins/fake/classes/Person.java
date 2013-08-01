@@ -32,7 +32,7 @@ public class Person extends Entity {
 		return getMethod(methodName, new Class[0]);
 	}
 	
-	private static Method getMethod(String methodName, Class[] parameterTypes) {
+	private static Method getMethod(String methodName, @SuppressWarnings("rawtypes") Class[] parameterTypes) {
 		try {
 			return Person.class.getMethod(methodName, parameterTypes);
 		} catch (Exception ex) {

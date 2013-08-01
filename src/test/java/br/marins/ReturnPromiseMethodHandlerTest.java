@@ -15,7 +15,7 @@ import br.marins.fake.classes.Person;
 public class ReturnPromiseMethodHandlerTest {
 
 	@Mock private SpyMethodHandler spyMethodHandler;
-	@Mock private ReturnPromise returnPromise;
+	@Mock private ActualReturnPromise returnPromise;
 	
 	private ReturnPromiseMethodHandler handler;
 	

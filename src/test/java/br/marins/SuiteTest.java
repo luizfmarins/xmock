@@ -7,13 +7,12 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({
 	ReturnPromiseMethodHandlerTest.class,
+	ActualReturnPromiseTest.class,
+	NoReturnPromiseTest.class, 
 	SpyMethodHandlerTest.class,
 	SpyMethodFilterTest.class,
 	XMockTest.class
 })
 public class SuiteTest {
 
-	public static void main(String[] args) {
-	}
-	
 }

@@ -8,9 +8,9 @@ import javassist.util.proxy.ProxyObject;
 public class ReturnPromiseMethodHandler implements MethodHandler {
 
 	private final SpyMethodHandler spyMethodHandler;
-	private final ReturnPromise returnPromise;
+	private final ActualReturnPromise returnPromise;
 	
-	public ReturnPromiseMethodHandler(SpyMethodHandler spyMethodHandler, ReturnPromise returnPromise) {
+	public ReturnPromiseMethodHandler(SpyMethodHandler spyMethodHandler, ActualReturnPromise returnPromise) {
 		this.spyMethodHandler = spyMethodHandler;
 		this.returnPromise = returnPromise;
 	}

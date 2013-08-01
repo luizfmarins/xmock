@@ -8,8 +8,8 @@ public class XMock {
 		return createSpiedObject(object);
 	}
 
-	public static ReturnPromise doReturn(Object promiseOfReturn) {
-		return new ReturnPromise(promiseOfReturn);
+	public static ActualReturnPromise doReturn(Object promiseOfReturn) {
+		return new ActualReturnPromise(promiseOfReturn);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -22,6 +22,8 @@ public class XMock {
 			factory.setFilter(new SpyMethodFilter());
 			
 			T spiedObject = (T) factory.create(new Class[0], new Object[0], methodhandler);
+			
+			methodhandler.setRealInstance(object);
 			
 			return spiedObject;
 		} catch (Exception ex) {

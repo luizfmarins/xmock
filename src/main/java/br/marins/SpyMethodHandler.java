@@ -8,6 +8,8 @@ import javassist.util.proxy.MethodHandler;
 
 public class SpyMethodHandler implements MethodHandler {
 
+	private Object realInstance;
+	
 	private Map<Method, ReturnPromise> methodsReturnPromises = new HashMap<Method, ReturnPromise>();
 	
 	public SpyMethodHandler() {}
@@ -17,16 +19,21 @@ public class SpyMethodHandler implements MethodHandler {
 	}
 	
 	@Override
-	public Object invoke(Object self, Method currentMethod, Method proceedMethod, Object[] args) {
-		return getReturnPromisse(currentMethod).getReturn(self);
+	public Object invoke(Object self, Method currentMethod, Method proceedMethod, Object[] args) throws Throwable {
+		return getReturnPromisse(currentMethod).getReturn(currentMethod, args);
 	}
 
-	public void addReturnPromise(ReturnPromise returnPromise) {
+	public void addReturnPromise(ActualReturnPromise returnPromise) {
 		methodsReturnPromises.put(returnPromise.getMethod(), returnPromise);
 	}
 
 	public ReturnPromise getReturnPromisse(Method method) {
-		return methodsReturnPromises.get(method);
+		ReturnPromise promise = methodsReturnPromises.get(method);
+		return promise != null ? promise : new NoReturnPromise(realInstance);
+	}
+	
+	public void setRealInstance(Object realInstance) {
+		this.realInstance = realInstance;
 	}
 
 }

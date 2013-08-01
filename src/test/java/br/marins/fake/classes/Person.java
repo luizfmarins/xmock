@@ -23,6 +23,11 @@ public class Person extends Entity {
 	public static Method getMethodGetName() {
 		return getMethod("getName");
 	}
+	
+	public static Method getMethodGetAge() {
+		return getMethod("getAge");
+	}
+
 
 	public static Method getMethodHashCode() {
 		return getMethod("hashCode");

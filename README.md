@@ -1,0 +1,1 @@
+Prototype of a mock tool for huge classes.

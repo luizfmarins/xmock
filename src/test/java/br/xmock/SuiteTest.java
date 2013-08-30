@@ -8,7 +8,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
 	ReturnPromiseMethodHandlerTest.class,
 	ActualReturnPromiseTest.class,
-	NoReturnPromiseTest.class, 
+	DelegateToRealInstanceMethodCallTest.class, 
 	SpyMethodHandlerTest.class,
 	SpyMethodFilterTest.class,
 	XMockTest.class

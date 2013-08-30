@@ -15,7 +15,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import br.xmock.ActualReturnPromise;
-import br.xmock.NoReturnPromise;
+import br.xmock.DelegateToRealInstanceMethodCall;
 import br.xmock.ReturnPromise;
 import br.xmock.SpyMethodHandler;
 import br.xmock.fake.classes.Person;
@@ -71,7 +71,7 @@ public class SpyMethodHandlerTest {
 	public void getReturnPromiseForMethodWithNoPromise() {
 		ReturnPromise promise = handler.getReturnPromisse(Person.getMethodGetAge());
 		
-		assertTrue(promise instanceof NoReturnPromise);
+		assertTrue(promise instanceof DelegateToRealInstanceMethodCall);
 	}
 	
 	@Before

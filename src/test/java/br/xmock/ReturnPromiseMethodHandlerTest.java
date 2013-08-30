@@ -1,6 +1,5 @@
 package br.xmock;
 
-import javassist.util.proxy.ProxyFactory;
 import javassist.util.proxy.ProxyObject;
 
 import org.junit.Before;
@@ -10,9 +9,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import br.xmock.ActualReturnPromise;
-import br.xmock.ReturnPromiseMethodHandler;
-import br.xmock.SpyMethodHandler;
 import br.xmock.fake.classes.Person;
 
 @RunWith(MockitoJUnitRunner.class)

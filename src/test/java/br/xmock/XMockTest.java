@@ -2,7 +2,6 @@ package br.xmock;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -22,7 +21,6 @@ public class XMockTest {
 		assertEquals("Marins", person.getName());
 	}
 	
-	@Ignore("Not Implemented yet")
 	@Test
 	public void mockHappyDay() {
 		Person person = XMock.mock(Person.class);

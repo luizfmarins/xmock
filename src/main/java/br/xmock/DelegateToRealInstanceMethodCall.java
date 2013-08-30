@@ -2,11 +2,11 @@ package br.xmock;
 
 import java.lang.reflect.Method;
 
-class NoReturnPromise extends ReturnPromise {
+class DelegateToRealInstanceMethodCall extends ReturnPromise {
 
 	private final Object realInstance;
 	
-	public NoReturnPromise(Object realInstance) {
+	public DelegateToRealInstanceMethodCall(Object realInstance) {
 		this.realInstance = realInstance;
 	}
 	

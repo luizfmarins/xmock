@@ -9,17 +9,17 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import br.xmock.NoReturnPromise;
+import br.xmock.DelegateToRealInstanceMethodCall;
 import br.xmock.fake.classes.Person;
 
 @RunWith(MockitoJUnitRunner.class)
-public class NoReturnPromiseTest {
+public class DelegateToRealInstanceMethodCallTest {
 
 	@Mock private Person person;
 	
 	@Test
 	public void getResultCallsTheMethodInTheRealObject() throws Throwable {
-		NoReturnPromise noPromise = new NoReturnPromise(person);
+		DelegateToRealInstanceMethodCall noPromise = new DelegateToRealInstanceMethodCall(person);
 		
 		Object result = noPromise.getReturn(Person.getMethodGetName(), new Object[0]);
 		

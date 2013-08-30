@@ -2,6 +2,8 @@ package br.xmock;
 
 import java.lang.reflect.Method;
 
+import javassist.util.proxy.ProxyObject;
+
 public class MethodCall<T> {
 
 	private final Object instance;
@@ -13,7 +15,10 @@ public class MethodCall<T> {
 	}
 	
 	public void thenReturn(T value) {
-		// TODO Auto-generated method stub
+		ProxyObject proxy = (ProxyObject) instance;
+		XMockMethodHandler handler = (XMockMethodHandler) proxy.getHandler();
+		
+		handler.addReturnPromise(ActualReturnPromise.newInstance(methodCalled, value));
 	}
 
 	Object getInstance() {

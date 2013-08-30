@@ -2,9 +2,7 @@ package br.xmock;
 
 import java.lang.reflect.Method;
 
-import javassist.util.proxy.MethodHandler;
-
-public class MockMethodHandler implements MethodHandler {
+public class MockMethodHandler extends XMockMethodHandler {
 	
 	private MockMethodHandler() {}
 	
@@ -14,9 +12,8 @@ public class MockMethodHandler implements MethodHandler {
 		MethodCallFactory.setLastMethodCalled(currentMethod);
 		return null;
 	}
-	
+
 	public static MockMethodHandler newInstance() {
 		return new MockMethodHandler();
 	}
-
 }

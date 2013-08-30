@@ -1,6 +1,7 @@
 package br.xmock;
 
 import javassist.util.proxy.ProxyFactory;
+import javassist.util.proxy.ProxyObject;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +25,7 @@ public class ReturnPromiseMethodHandlerTest {
 	
 	@Test
 	public void invoke() {
-		Person person = createProxiedPerson();
+		ProxyObject person = Mockito.mock(ProxyObject.class);
 		
 		handler.invoke(person, Person.getMethodGetName(),null, new Object[0]);
 		
@@ -33,7 +34,7 @@ public class ReturnPromiseMethodHandlerTest {
 	
 	@Test
 	public void invokeSetTheMethodInTheReturnPromisse() {
-		Person person = createProxiedPerson();
+		ProxyObject person = Mockito.mock(ProxyObject.class);
 		
 		handler.invoke(person, Person.getMethodGetName(),null, new Object[0]);
 		
@@ -44,15 +45,4 @@ public class ReturnPromiseMethodHandlerTest {
 	public void setup() {
 		handler = new ReturnPromiseMethodHandler(spyMethodHandler, returnPromise);
 	}
-	
-	private Person createProxiedPerson() {
-		try {
-			ProxyFactory factory = new ProxyFactory();
-			factory.setSuperclass(Person.class);
-			return (Person) factory.create(new Class[0], new Object[0], SpyMethodHandler.newInstance());
-		} catch (Exception ex) {
-			throw new IllegalStateException(ex);
-		}
-	}
-	
 }

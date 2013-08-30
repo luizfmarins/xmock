@@ -12,6 +12,11 @@ class ActualReturnPromise extends ReturnPromise {
 	private ActualReturnPromise(Object promiseOfReturn) {
 		this.promiseOfReturn = promiseOfReturn;
 	}
+	
+	private ActualReturnPromise(Method method, Object promiseOfReturn) {
+		this.promiseOfReturn = promiseOfReturn;
+		this.method = method;
+	}
 
 	@Override
 	public <T> T when(T mockedObject) {
@@ -41,5 +46,9 @@ class ActualReturnPromise extends ReturnPromise {
 	
 	public static ActualReturnPromise newInstance(Object promiseOfReturn) {
 		return new ActualReturnPromise(promiseOfReturn);
+	}
+	
+	public static ActualReturnPromise newInstance (Method method, Object promiseOfReturn) {
+		return new ActualReturnPromise(method, promiseOfReturn);
 	}
 }

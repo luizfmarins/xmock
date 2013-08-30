@@ -1,4 +1,4 @@
-package br.marins;
+package br.xmock;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

@@ -1,4 +1,4 @@
-package br.marins;
+package br.xmock;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -14,7 +14,11 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import br.marins.fake.classes.Person;
+import br.xmock.ActualReturnPromise;
+import br.xmock.NoReturnPromise;
+import br.xmock.ReturnPromise;
+import br.xmock.SpyMethodHandler;
+import br.xmock.fake.classes.Person;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SpyMethodHandlerTest {

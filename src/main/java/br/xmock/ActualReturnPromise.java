@@ -1,18 +1,19 @@
-package br.marins;
+package br.xmock;
 
 import java.lang.reflect.Method;
 
 import javassist.util.proxy.ProxyObject;
 
-public class ActualReturnPromise extends ReturnPromise {
+class ActualReturnPromise extends ReturnPromise {
 
 	private final Object promiseOfReturn;
 	private Method method;
 	
-	public ActualReturnPromise(Object promiseOfReturn) {
+	private ActualReturnPromise(Object promiseOfReturn) {
 		this.promiseOfReturn = promiseOfReturn;
 	}
 
+	@Override
 	public <T> T when(T mockedObject) {
 		configureReturnPromiseMethodHandler(mockedObject);
 		return mockedObject;
@@ -36,5 +37,9 @@ public class ActualReturnPromise extends ReturnPromise {
 		
 		SpyMethodHandler spyMethodHandler = (SpyMethodHandler) proxyObject.getHandler();
 		proxyObject.setHandler(new ReturnPromiseMethodHandler(spyMethodHandler, this));
+	}
+	
+	public static ActualReturnPromise newInstance(Object promiseOfReturn) {
+		return new ActualReturnPromise(promiseOfReturn);
 	}
 }

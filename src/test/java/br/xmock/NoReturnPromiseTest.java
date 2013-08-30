@@ -1,4 +1,4 @@
-package br.marins;
+package br.xmock;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,7 +9,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import br.marins.fake.classes.Person;
+import br.xmock.NoReturnPromise;
+import br.xmock.fake.classes.Person;
 
 @RunWith(MockitoJUnitRunner.class)
 public class NoReturnPromiseTest {

@@ -1,4 +1,4 @@
-package br.marins;
+package br.xmock;
 
 import static org.mockito.Mockito.never;
 
@@ -10,7 +10,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import br.marins.fake.classes.Person;
+import br.xmock.ActualReturnPromise;
+import br.xmock.fake.classes.Person;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ActualReturnPromiseTest {
@@ -38,7 +39,7 @@ public class ActualReturnPromiseTest {
 	@Before
 	public void setup() {
 		Mockito.when(person.getName()).thenReturn("Marins");
-		returnPromise = new ActualReturnPromise(PROMISE);
+		returnPromise = ActualReturnPromise.newInstance(PROMISE);
 	}
 	
 	

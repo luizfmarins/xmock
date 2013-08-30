@@ -1,4 +1,4 @@
-package br.marins;
+package br.xmock;
 
 import javassist.util.proxy.ProxyFactory;
 
@@ -9,7 +9,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import br.marins.fake.classes.Person;
+import br.xmock.ActualReturnPromise;
+import br.xmock.ReturnPromiseMethodHandler;
+import br.xmock.SpyMethodHandler;
+import br.xmock.fake.classes.Person;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ReturnPromiseMethodHandlerTest {
@@ -46,7 +49,7 @@ public class ReturnPromiseMethodHandlerTest {
 		try {
 			ProxyFactory factory = new ProxyFactory();
 			factory.setSuperclass(Person.class);
-			return (Person) factory.create(new Class[0], new Object[0], new SpyMethodHandler());
+			return (Person) factory.create(new Class[0], new Object[0], SpyMethodHandler.newInstance());
 		} catch (Exception ex) {
 			throw new IllegalStateException(ex);
 		}

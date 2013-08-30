@@ -1,4 +1,4 @@
-package br.marins.fake.classes;
+package br.xmock.fake.classes;
 
 import java.lang.reflect.Method;
 

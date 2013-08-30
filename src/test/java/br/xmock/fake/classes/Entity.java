@@ -1,4 +1,4 @@
-package br.marins.fake.classes;
+package br.xmock.fake.classes;
 
 public class Entity {
 

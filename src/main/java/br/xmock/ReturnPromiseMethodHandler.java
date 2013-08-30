@@ -1,11 +1,11 @@
-package br.marins;
+package br.xmock;
 
 import java.lang.reflect.Method;
 
 import javassist.util.proxy.MethodHandler;
 import javassist.util.proxy.ProxyObject;
 
-public class ReturnPromiseMethodHandler implements MethodHandler {
+class ReturnPromiseMethodHandler implements MethodHandler {
 
 	private final SpyMethodHandler spyMethodHandler;
 	private final ActualReturnPromise returnPromise;

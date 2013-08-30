@@ -1,13 +1,14 @@
-package br.marins;
+package br.xmock;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import br.marins.fake.classes.NaturalPerson;
-import br.marins.fake.classes.Person;
+import br.xmock.fake.classes.NaturalPerson;
+import br.xmock.fake.classes.Person;
 
 public class XMockTest {
 
@@ -21,8 +22,18 @@ public class XMockTest {
 		assertEquals("Marins", person.getName());
 	}
 	
+	@Ignore("Not Implemented yet")
 	@Test
-	public void invokeMethodWithNoReturnPromise() {
+	public void mockHappyDay() {
+		Person person = XMock.mock(Person.class);
+		
+		XMock.when(person.getName()).thenReturn("Luiz");
+		
+		assertEquals("Luiz", person.getName());
+	}
+	
+	@Test
+	public void invokeMethodOnSpiedObjectWithNoReturnPromise() {
 		Person spiedPerson = XMock.spy(new NaturalPerson());
 
 		String name = spiedPerson.getName();

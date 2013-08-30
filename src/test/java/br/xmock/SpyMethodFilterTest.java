@@ -1,4 +1,4 @@
-package br.marins;
+package br.xmock;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -7,7 +7,8 @@ import java.lang.reflect.Method;
 
 import org.junit.Test;
 
-import br.marins.fake.classes.Person;
+import br.xmock.SpyMethodFilter;
+import br.xmock.fake.classes.Person;
 
 public class SpyMethodFilterTest {
 

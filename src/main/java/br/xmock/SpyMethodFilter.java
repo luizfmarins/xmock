@@ -1,10 +1,10 @@
-package br.marins;
+package br.xmock;
 
 import java.lang.reflect.Method;
 
 import javassist.util.proxy.MethodFilter;
 
-public class SpyMethodFilter implements MethodFilter {
+class SpyMethodFilter implements MethodFilter {
 
 	@Override
 	public boolean isHandled(Method method) {

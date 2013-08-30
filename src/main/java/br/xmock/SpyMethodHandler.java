@@ -1,4 +1,4 @@
-package br.marins;
+package br.xmock;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -6,15 +6,15 @@ import java.util.Map;
 
 import javassist.util.proxy.MethodHandler;
 
-public class SpyMethodHandler implements MethodHandler {
+class SpyMethodHandler implements MethodHandler {
 
 	private Object realInstance;
 	
 	private Map<Method, ReturnPromise> methodsReturnPromises = new HashMap<Method, ReturnPromise>();
 	
-	public SpyMethodHandler() {}
+	private SpyMethodHandler() {}
 	
-	public SpyMethodHandler(Map<Method, ReturnPromise> methodsReturnPromises) {
+	SpyMethodHandler(Map<Method, ReturnPromise> methodsReturnPromises) {
 		this.methodsReturnPromises = methodsReturnPromises;
 	}
 	
@@ -36,4 +36,7 @@ public class SpyMethodHandler implements MethodHandler {
 		this.realInstance = realInstance;
 	}
 
+	public static SpyMethodHandler newInstance() {
+		return new SpyMethodHandler();
+	}
 }

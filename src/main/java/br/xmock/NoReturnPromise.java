@@ -1,8 +1,8 @@
-package br.marins;
+package br.xmock;
 
 import java.lang.reflect.Method;
 
-public class NoReturnPromise extends ReturnPromise {
+class NoReturnPromise extends ReturnPromise {
 
 	private final Object realInstance;
 	

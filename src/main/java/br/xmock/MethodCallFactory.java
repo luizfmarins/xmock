@@ -3,27 +3,35 @@ package br.xmock;
 import java.lang.reflect.Method;
 
 class MethodCallFactory {
-
-	private static Method lastMethodCalled;
-	private static Object lastInstance;
 	
-	public static Method getLastMethodCalled() {
+	private Method lastMethodCalled;
+	private Object lastInstance;
+	
+	private static final MethodCallFactory instance = new MethodCallFactory();  
+	
+	private MethodCallFactory() {}
+	
+	public <T> MethodCall<T> create(T obj) {
+		return new MethodCall<T>(lastInstance, lastMethodCalled);
+	}
+	
+	public Method getLastMethodCalled() {
 		return lastMethodCalled;
 	}
 	
-	public static void setLastMethodCalled(Method method) {
+	public void setLastMethodCalled(Method method) {
 		lastMethodCalled = method;
 	}
-	
-	public static <T> MethodCall<T> newInstance(T obj) {
-		return new MethodCall<T>(lastInstance, lastMethodCalled);
-	}
 
-	public static Object getLastInstance() {
+	public Object getLastInstance() {
 		return lastInstance;
 	}
 	
-	public static void setLastInstance(Object instance) {
+	public void setLastInstance(Object instance) {
 		lastInstance = instance;
+	}
+	
+	public static MethodCallFactory getInstance() {
+		return instance;
 	}
 }

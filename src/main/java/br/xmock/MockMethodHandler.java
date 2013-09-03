@@ -13,8 +13,8 @@ public class MockMethodHandler extends XMockMethodHandler {
 	
 	@Override
 	public Object invoke(Object self, Method currentMethod, Method proceedMethod, Object[] args) throws Throwable {
-		MethodCallFactory.setLastInstance(self);
-		MethodCallFactory.setLastMethodCalled(currentMethod);
+		MethodCallFactory.getInstance().setLastInstance(self);
+		MethodCallFactory.getInstance().setLastMethodCalled(currentMethod);
 		
 		return super.invoke(self, currentMethod, proceedMethod, args);
 	}

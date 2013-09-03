@@ -18,7 +18,7 @@ public class XMock {
 	}
 	
 	public static <T> MethodCall<T> when(T object) {
-		return MethodCallFactory.newInstance(object);
+		return MethodCallFactory.getInstance().create(object);
 	}
 	
 	private static <T> T createSpiedObject(T object) {

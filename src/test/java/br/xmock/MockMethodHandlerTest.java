@@ -32,7 +32,7 @@ public class MockMethodHandlerTest {
 		MockMethodHandler handler = MockMethodHandler.newInstance();
 		handler.invoke(person, Person.getMethodGetName(), null, new Object[] {});
 		
-		assertEquals(Person.getMethodGetName(), MethodCallFactory.getLastMethodCalled());
+		assertEquals(Person.getMethodGetName(), MethodCallFactory.getInstance().getLastMethodCalled());
 	}
 	
 	@Test
@@ -41,7 +41,7 @@ public class MockMethodHandlerTest {
 		MockMethodHandler handler = MockMethodHandler.newInstance();
 		handler.invoke(person, Person.getMethodGetName(), null, new Object[] {});
 		
-		assertEquals(person, MethodCallFactory.getLastInstance());
+		assertEquals(person, MethodCallFactory.getInstance().getLastInstance());
 	}
 	
 	@Test

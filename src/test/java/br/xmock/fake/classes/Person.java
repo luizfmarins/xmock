@@ -20,6 +20,10 @@ public class Person extends Entity {
 		return (Integer) field_get("age");
 	}
 	
+	public Integer calculateAgeInYear(Integer year) {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
+	
 	public static Method getMethodGetName() {
 		return getMethod("getName");
 	}
@@ -28,16 +32,19 @@ public class Person extends Entity {
 		return getMethod("getAge");
 	}
 
-
 	public static Method getMethodHashCode() {
 		return getMethod("hashCode");
+	}
+	
+	public static Method getMethodCalculateAgeInYear() {
+		return getMethod("calculateAgeInYear", new Class[] {Integer.class});
 	}
 	
 	private static Method getMethod(String methodName) {
 		return getMethod(methodName, new Class[0]);
 	}
 	
-	private static Method getMethod(String methodName, @SuppressWarnings("rawtypes") Class[] parameterTypes) {
+	private static Method getMethod(String methodName, Class<?>[] parameterTypes) {
 		try {
 			return Person.class.getMethod(methodName, parameterTypes);
 		} catch (Exception ex) {

@@ -34,7 +34,7 @@ public class ReturnPromiseMethodHandlerTest {
 		
 		handler.invoke(person, Person.getMethodGetName(),null, new Object[0]);
 		
-		Mockito.verify(returnPromise).setMethod(Person.getMethodGetName());
+		Mockito.verify(returnPromise).setMethod(Person.getMethodGetName(), new Object[0]);
 	}
 	
 	@Before

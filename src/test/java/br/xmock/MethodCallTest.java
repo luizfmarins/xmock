@@ -1,29 +1,35 @@
 package br.xmock;
 
-import javassist.util.proxy.ProxyObject;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import br.xmock.fake.classes.Person;
 
-@RunWith(MockitoJUnitRunner.class)
 public class MethodCallTest {
 
-	@Mock private ProxyObject instance;
-	@Mock private XMockMethodHandler methodhandler;
-	
 	@Test
-	public void a() {
-		Mockito.when(instance.getHandler()).thenReturn(methodhandler);
+	public void equals() {
+		MethodCall call1 = new MethodCall(Person.getMethodCalculateAgeInYear(), new Object[] {2013});
+		MethodCall call2 = new MethodCall(Person.getMethodCalculateAgeInYear(), new Object[] {2013});
 		
-		MethodCall<String> methodCalled = new MethodCall<String>(instance, Person.getMethodGetName());
-		methodCalled.thenReturn("luiz");
-		
-		Mockito.verify(methodhandler).addReturnPromise(Mockito.any(ActualReturnPromise.class));
+		assertTrue(call1.equals(call2));
 	}
 	
+	@Test
+	public void notEqualsByParameters() {
+		MethodCall call1 = new MethodCall(Person.getMethodCalculateAgeInYear(), new Object[] {2013});
+		MethodCall call2 =  new MethodCall(Person.getMethodCalculateAgeInYear(), new Object[] {2014});
+		
+		assertFalse(call1.equals(call2));
+	}
+	
+	@Test
+	public void notEqualsByMethod() {
+		MethodCall call1 = new MethodCall(Person.getMethodGetAge(), new Object[] {2014});
+		MethodCall call2 = new MethodCall(Person.getMethodCalculateAgeInYear(), new Object[] {2014});
+		
+		assertFalse(call1.equals(call2));
+	}
 }

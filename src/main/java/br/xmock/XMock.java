@@ -17,8 +17,8 @@ public class XMock {
 		return ActualReturnPromise.newInstance(promiseOfReturn);
 	}
 	
-	public static <T> MethodCall<T> when(T object) {
-		return MethodCallFactory.getInstance().create(object);
+	public static <T> MethodCallMock<T> when(T object) {
+		return MethodCallMockFactory.getInstance().create(object);
 	}
 	
 	private static <T> T createSpiedObject(T object) {

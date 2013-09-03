@@ -1,6 +1,5 @@
 package br.xmock;
 
-import java.lang.reflect.Method;
 import java.util.Map;
 
 class SpyMethodHandler extends XMockMethodHandler {
@@ -9,12 +8,12 @@ class SpyMethodHandler extends XMockMethodHandler {
 	
 	private SpyMethodHandler() {}
 	
-	SpyMethodHandler(Map<Method, ReturnPromise> methodsReturnPromises) {
-		super(methodsReturnPromises);
+	SpyMethodHandler(Map<MethodCall, ReturnPromise> methodsReturnPromises, MethodCallFactory methodCallFactory) {
+		super(methodsReturnPromises, methodCallFactory);
 	}
 	
 	@Override
-	protected ReturnPromise getReturnPromisse(Method method) {
+	protected ReturnPromise getReturnPromisse(MethodCall method) {
 		ReturnPromise promise = methodsReturnPromises.get(method);
 		return promise != null ? promise : new DelegateToRealInstanceMethodCall(realInstance);
 	}

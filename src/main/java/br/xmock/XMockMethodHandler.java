@@ -8,22 +8,27 @@ import javassist.util.proxy.MethodHandler;
 
 abstract class XMockMethodHandler implements MethodHandler {
 	
-	protected Map<Method, ReturnPromise> methodsReturnPromises = new HashMap<Method, ReturnPromise>();
+	protected Map<MethodCall, ReturnPromise> methodsReturnPromises = new HashMap<MethodCall, ReturnPromise>();
+	private final MethodCallFactory methodCallFactory;
 	
-	protected XMockMethodHandler() {}
+	protected XMockMethodHandler() {
+		methodCallFactory = MethodCallFactory.getInstance();
+	}
 	
-	protected XMockMethodHandler(Map<Method, ReturnPromise> methodsReturnPromises) {
+	protected XMockMethodHandler(Map<MethodCall, ReturnPromise> methodsReturnPromises, MethodCallFactory methodCallFactory) {
 		this.methodsReturnPromises = methodsReturnPromises;
+		this.methodCallFactory = methodCallFactory;
 	}
 	
 	@Override
 	public Object invoke(Object self, Method currentMethod, Method proceedMethod, Object[] args) throws Throwable {
-		return getReturnPromisse(currentMethod).getReturn(currentMethod, args);
+		MethodCall methodCall = methodCallFactory.create(currentMethod, args);
+		return getReturnPromisse(methodCall).getReturn(currentMethod, args);
 	}
 	
 	public void addReturnPromise(ActualReturnPromise returnPromise) {
-		methodsReturnPromises.put(returnPromise.getMethod(), returnPromise);
+		methodsReturnPromises.put(returnPromise.getMethodCall(), returnPromise);
 	}
 
-	protected abstract ReturnPromise getReturnPromisse(Method method);
+	protected abstract ReturnPromise getReturnPromisse(MethodCall method);
 }

@@ -2,6 +2,7 @@ package br.xmock;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -44,5 +45,16 @@ public class XMockTest {
 		exception.expect(RuntimeException.class);
 		exception.expectMessage("Unable to spy null");
 		XMock.spy(null);
+	}
+	
+	@Test
+	public void mockMethodWithParameters() {
+		Person person = XMock.mock(Person.class);
+		
+		XMock.when(person.calculateAgeInYear(2013)).thenReturn(23);
+		XMock.when(person.calculateAgeInYear(2014)).thenReturn(24);
+		
+		assertEquals(Integer.valueOf(23), person.calculateAgeInYear(2013));
+		assertEquals(Integer.valueOf(24), person.calculateAgeInYear(2014));
 	}
 }

@@ -1,8 +1,8 @@
 package br.xmock;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
-import java.lang.reflect.Method;
 import java.util.Map;
 
 import org.junit.Assert;
@@ -19,8 +19,10 @@ import br.xmock.fake.classes.Person;
 public class MockMethodHandlerTest {
 
 	@Mock private ActualReturnPromise returnPromise;
-	@Mock private Map<Method, ReturnPromise> methodsReturnPromises;
+	@Mock private Map<MethodCall, ReturnPromise> methodsReturnPromises;
 	@Mock private Person person;
+	@Mock private MethodCall methodCall;
+	@Mock private MethodCallFactory methodCallFactory;
 	
 	private MockMethodHandler handler;
 	
@@ -32,16 +34,26 @@ public class MockMethodHandlerTest {
 		MockMethodHandler handler = MockMethodHandler.newInstance();
 		handler.invoke(person, Person.getMethodGetName(), null, new Object[] {});
 		
-		assertEquals(Person.getMethodGetName(), MethodCallFactory.getInstance().getLastMethodCalled());
+		assertEquals(Person.getMethodGetName(), MethodCallMockFactory.getInstance().getLastMethodCalled());
 	}
 	
 	@Test
-	public void invokeSetLastInstanceMethodCallFactory() throws Throwable {
+	public void invokeSetLastInstanceOnMethodCallFactory() throws Throwable {
 		Person person = new Person();
 		MockMethodHandler handler = MockMethodHandler.newInstance();
 		handler.invoke(person, Person.getMethodGetName(), null, new Object[] {});
 		
-		assertEquals(person, MethodCallFactory.getInstance().getLastInstance());
+		assertEquals(person, MethodCallMockFactory.getInstance().getLastInstance());
+	}
+	
+	@Test
+	public void invokeSetLastMethodParametersOnMethodCallFactory() throws Throwable {
+		final Object[] parameters = new Object[] {5};
+		
+		MockMethodHandler handler = MockMethodHandler.newInstance();
+		handler.invoke(new Person(), Person.getMethodCalculateAgeInYear(), null, parameters);
+		
+		assertArrayEquals(parameters , MethodCallMockFactory.getInstance().getLastMethodParameters());
 	}
 	
 	@Test
@@ -54,10 +66,11 @@ public class MockMethodHandlerTest {
 	@Before
 	public void setup() {
 		Mockito.when(person.getName()).thenReturn(MARINS);
-		Mockito.when(returnPromise.getMethod()).thenReturn(Person.getMethodGetName());
-		Mockito.when(methodsReturnPromises.get(Person.getMethodGetName())).thenReturn(returnPromise);
+		Mockito.when(returnPromise.getMethodCall()).thenReturn(methodCall);
+		Mockito.when(methodsReturnPromises.get(methodCall)).thenReturn(returnPromise);
 		Mockito.when(returnPromise.getReturn(Person.getMethodGetName(), new Object[0])).thenReturn(MARINS);
+		Mockito.when(methodCallFactory.create(Person.getMethodGetName(), new Object[0])).thenReturn(methodCall);
 		
-		handler = new MockMethodHandler(methodsReturnPromises);
+		handler = new MockMethodHandler(methodsReturnPromises, methodCallFactory);
 	}
 }

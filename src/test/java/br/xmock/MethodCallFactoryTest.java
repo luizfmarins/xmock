@@ -12,10 +12,10 @@ public class MethodCallFactoryTest {
 	@Test
 	public void newInstance() {
 		Person person = Mockito.mock(Person.class);
-		MethodCallFactory.getInstance().setLastInstance(person);
-		MethodCallFactory.getInstance().setLastMethodCalled(Person.getMethodGetName());
+		MethodCallMockFactory.getInstance().setLastInstance(person);
+		MethodCallMockFactory.getInstance().setLastMethodCalled(Person.getMethodGetName());
 		
-		MethodCall<String> methodCall = MethodCallFactory.getInstance().create(person.getName());
+		MethodCallMock<String> methodCall = MethodCallMockFactory.getInstance().create(person.getName());
 		
 		assertEquals(person, methodCall.getInstance());
 		assertEquals(Person.getMethodGetName(), methodCall.getMethod());

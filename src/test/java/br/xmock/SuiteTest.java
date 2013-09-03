@@ -11,6 +11,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	DelegateToRealInstanceMethodCallTest.class, 
 	SpyMethodHandlerTest.class,
 	SpyMethodFilterTest.class,
+	MethodCallMockTest.class,
+	MethodCallTest.class,
 	XMockTest.class
 })
 public class SuiteTest {

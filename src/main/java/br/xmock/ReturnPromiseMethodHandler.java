@@ -17,13 +17,13 @@ class ReturnPromiseMethodHandler implements MethodHandler {
 	
 	@Override
 	public Object invoke(Object self, Method currentMethod, Method proceedMethod, Object[] args) {
-		configureReturnPromisseForSpyMethodHandler(currentMethod);
+		configureReturnPromisseForSpyMethodHandler(currentMethod, args);
 		reconfigureSpyMethodHandlerOnObject(self);
 		return null;
 	}
 
-	private void configureReturnPromisseForSpyMethodHandler(Method currentMethod) {
-		returnPromise.setMethod(currentMethod);
+	private void configureReturnPromisseForSpyMethodHandler(Method currentMethod, Object[] args) {
+		returnPromise.setMethod(currentMethod, args);
 		spyMethodHandler.addReturnPromise(returnPromise);
 	}
 

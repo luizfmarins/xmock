@@ -24,8 +24,10 @@ import br.xmock.fake.classes.Person;
 public class SpyMethodHandlerTest {
 
 	@Mock private ActualReturnPromise returnPromise;
-	@Mock private Map<Method, ReturnPromise> methodsReturnPromises;
+	@Mock private Map<MethodCall, ReturnPromise> methodsReturnPromises;
 	@Mock private Person person;
+	@Mock private MethodCall methodCall;
+	@Mock private MethodCallFactory methodCallFactory;
 
 	private Method getNameMethod = Person.getMethodGetName();
 	private SpyMethodHandler handler;
@@ -50,26 +52,26 @@ public class SpyMethodHandlerTest {
 	public void invokeSearchesForTheReturnInTheMap() throws Throwable {
 		handler.invoke(person, getNameMethod, null, new Object[0]);
 		
-		Mockito.verify(methodsReturnPromises).get(Person.getMethodGetName());
+		Mockito.verify(methodsReturnPromises).get(methodCall);
 	}
 	
 	@Test
 	public void addReturnPromise() {
 		handler.addReturnPromise(returnPromise);
 		
-		Mockito.verify(methodsReturnPromises).put(Person.getMethodGetName(), returnPromise);
+		Mockito.verify(methodsReturnPromises).put(methodCall, returnPromise);
 	}
 	
 	@Test
 	public void getReturnPromise() {
-		ReturnPromise actual = handler.getReturnPromisse(Person.getMethodGetName());
+		ReturnPromise actual = handler.getReturnPromisse(methodCall);
 		
 		assertEquals(returnPromise, actual);
 	}
 	
 	@Test
 	public void getReturnPromiseForMethodWithNoPromise() {
-		ReturnPromise promise = handler.getReturnPromisse(Person.getMethodGetAge());
+		ReturnPromise promise = handler.getReturnPromisse(new MethodCall(Person.getMethodGetAge(), new Object[0]));
 		
 		assertTrue(promise instanceof DelegateToRealInstanceMethodCall);
 	}
@@ -77,10 +79,11 @@ public class SpyMethodHandlerTest {
 	@Before
 	public void setup() {
 		Mockito.when(person.getName()).thenReturn(MARINS);
-		Mockito.when(returnPromise.getMethod()).thenReturn(Person.getMethodGetName());
-		Mockito.when(methodsReturnPromises.get(Person.getMethodGetName())).thenReturn(returnPromise);
+		Mockito.when(returnPromise.getMethodCall()).thenReturn(methodCall);
+		Mockito.when(methodsReturnPromises.get(methodCall)).thenReturn(returnPromise);
 		Mockito.when(returnPromise.getReturn(Person.getMethodGetName(), new Object[0])).thenReturn(MARINS);
+		Mockito.when(methodCallFactory.create(Person.getMethodGetName(), new Object[0])).thenReturn(methodCall);
 		
-		handler = new SpyMethodHandler(methodsReturnPromises);
+		handler = new SpyMethodHandler(methodsReturnPromises, methodCallFactory);
 	}
 }

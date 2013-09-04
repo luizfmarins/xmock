@@ -25,7 +25,6 @@ public class MethodCallMock<T> {
 		return instance;
 	}
 	
-	@Deprecated
 	Method getMethod() {
 		return methodCall.getMethod();
 	}

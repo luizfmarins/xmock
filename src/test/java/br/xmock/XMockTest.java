@@ -56,4 +56,15 @@ public class XMockTest {
 		assertEquals(Integer.valueOf(23), person.calculateAgeInYear(2013));
 		assertEquals(Integer.valueOf(24), person.calculateAgeInYear(2014));
 	}
+	
+	@Test
+	public void spyMethodWithParameters() {
+		Person person = XMock.spy(new Person());
+		
+		XMock.doReturn(23).when(person).calculateAgeInYear(2013);
+		XMock.doReturn(24).when(person).calculateAgeInYear(2014);
+		
+		assertEquals(Integer.valueOf(23), person.calculateAgeInYear(2013));
+		assertEquals(Integer.valueOf(24), person.calculateAgeInYear(2014));
+	}
 }

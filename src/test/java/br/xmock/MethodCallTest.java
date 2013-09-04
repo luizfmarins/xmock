@@ -3,6 +3,7 @@ package br.xmock;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import br.xmock.fake.classes.Person;
@@ -31,5 +32,14 @@ public class MethodCallTest {
 		MethodCall call2 = new MethodCall(Person.getMethodCalculateAgeInYear(), new Object[] {2014});
 		
 		assertFalse(call1.equals(call2));
+	}
+	
+	@Ignore // TODO
+	@Test
+	public void equalsAnyInt() {
+		MethodCall call1 = new MethodCall(Person.getMethodGetAge(), new Object[] {2014});
+		MethodCall call2 = new MethodCall(Person.getMethodCalculateAgeInYear(), new Object[] {2014});
+		
+		assertTrue(call1.equals(call2));
 	}
 }

@@ -21,6 +21,10 @@ public class XMock {
 		return MethodCallMockFactory.getInstance().create(object);
 	}
 	
+	public static Integer anyInt() {
+		return null;
+	}
+	
 	private static <T> T createSpiedObject(T object) {
 		try {
 			ProxyFactory factory = new ProxyFactory();

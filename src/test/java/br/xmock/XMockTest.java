@@ -69,6 +69,11 @@ public class XMockTest {
 		assertEquals(Integer.valueOf(24), person.calculateAgeInYear(2014));
 	}
 	
+	@Test
+	public void anyObjectSetParameterFactory() {
+		// TODO
+	}
+	
 	@Ignore // TODO
 	@Test
 	public void mockMethodWithAnyInt() {

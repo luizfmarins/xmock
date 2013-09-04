@@ -22,7 +22,8 @@ public class XMock {
 	}
 	
 	public static Integer anyInt() {
-		return null;
+		ParameterFactory.getInstance().setUseAnyObject();
+		return 0;
 	}
 	
 	private static <T> T createSpiedObject(T object) {

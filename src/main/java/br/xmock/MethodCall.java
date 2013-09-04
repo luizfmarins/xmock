@@ -1,24 +1,20 @@
 package br.xmock;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
+import java.util.List;
 
 class MethodCall {
 
 	private final Method method;
-	private final Object[] params;
+	private final List<Parameter> params;
 	
 	MethodCall(Method method, Object[] params) {
 		this.method = method;
-		this.params = params;
+		this.params = ParameterFactory.getInstance().create(params);
 	}
 	
 	public Method getMethod() {
 		return method;
-	}
-
-	public Object[] getParams() {
-		return params;
 	}
 
 	@Override
@@ -26,7 +22,7 @@ class MethodCall {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((method == null) ? 0 : method.hashCode());
-		result = prime * result + Arrays.hashCode(params);
+		result = prime * result + ((params == null) ? 0 : params.hashCode());
 		return result;
 	}
 
@@ -43,7 +39,7 @@ class MethodCall {
 		} else if (!method.equals(other.method))
 			return false;
 		
-		if (!Arrays.equals(params, other.params))
+		if (!(params.equals(other.params)))
 			return false;
 		
 		return true;

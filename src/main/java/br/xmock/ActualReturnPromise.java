@@ -42,11 +42,6 @@ class ActualReturnPromise extends ReturnPromise {
 		return promiseOfReturn;
 	}
 
-	@Deprecated
-	Method getMethod() {
-		return methodCall.getMethod();
-	}
-	
 	private <T> void configureReturnPromiseMethodHandler(T mockedObject) {
 		ProxyObject proxyObject = (ProxyObject) mockedObject;
 		

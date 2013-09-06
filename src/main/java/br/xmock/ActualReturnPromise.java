@@ -15,7 +15,7 @@ class ActualReturnPromise extends ReturnPromise {
 	
 	private ActualReturnPromise(Method method, Object promiseOfReturn, Object[] params) {
 		this.promiseOfReturn = promiseOfReturn;
-		this.methodCall = MethodCallFactory.getInstance().create(method, params);
+		this.methodCall = MethodCallFactory.getInstance().createForMock(method, params);
 	}
 	
 	private ActualReturnPromise(MethodCall methodCall, Object promiseOfReturn) {
@@ -34,7 +34,7 @@ class ActualReturnPromise extends ReturnPromise {
 	}
 	
 	public void setMethod(Method method, Object[] params) {
-		this.methodCall = MethodCallFactory.getInstance().create(method, params);
+		this.methodCall = MethodCallFactory.getInstance().createForMock(method, params);
 	}
 
 	@Override

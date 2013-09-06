@@ -11,12 +11,16 @@ public class ParameterFactory {
 	
 	private ParameterFactory() {}
 
-	public List<Parameter> create(Object[] parameterObjects) {
+	public List<Parameter> createForMock(Object[] parameterObjects) {
 		List<Parameter> params = isUsingAnyObject ? createAnyObjectParameters(parameterObjects) : createRealParameters(parameterObjects);
 		
 		isUsingAnyObject = false;
 		
 		return params;
+	}
+
+	public List<Parameter> createForRealCall(Object[] parameterObjects) {
+		return createRealParameters(parameterObjects);
 	}
 	
 	void setUseAnyObject() {
@@ -27,7 +31,7 @@ public class ParameterFactory {
 		return isUsingAnyObject;
 	}
 	
-	private List<Parameter> createRealParameters(Object[] parameterObjects) {
+	List<Parameter> createRealParameters(Object[] parameterObjects) {
 		List<Parameter> params = new ArrayList<Parameter>();
 		
 		for(Object obj : parameterObjects)
@@ -36,7 +40,7 @@ public class ParameterFactory {
 		return params;
 	}
 	
-	private List<Parameter> createAnyObjectParameters(Object[] parameterObjects) {
+	List<Parameter> createAnyObjectParameters(Object[] parameterObjects) {
 		List<Parameter> params = new ArrayList<Parameter>();
 		
 		for(Object obj : parameterObjects)

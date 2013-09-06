@@ -8,9 +8,9 @@ class MethodCall {
 	private final Method method;
 	private final List<Parameter> params;
 	
-	MethodCall(Method method, Object[] params) {
+	MethodCall(Method method, List<Parameter> params) {
 		this.method = method;
-		this.params = ParameterFactory.getInstance().create(params);
+		this.params = params;
 	}
 	
 	public Method getMethod() {
@@ -22,7 +22,6 @@ class MethodCall {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((method == null) ? 0 : method.hashCode());
-		result = prime * result + ((params == null) ? 0 : params.hashCode());
 		return result;
 	}
 

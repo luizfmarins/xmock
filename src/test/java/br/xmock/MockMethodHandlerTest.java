@@ -69,7 +69,7 @@ public class MockMethodHandlerTest {
 		Mockito.when(returnPromise.getMethodCall()).thenReturn(methodCall);
 		Mockito.when(methodsReturnPromises.get(methodCall)).thenReturn(returnPromise);
 		Mockito.when(returnPromise.getReturn(Person.getMethodGetName(), new Object[0])).thenReturn(MARINS);
-		Mockito.when(methodCallFactory.create(Person.getMethodGetName(), new Object[0])).thenReturn(methodCall);
+		Mockito.when(methodCallFactory.createForRealCall(Person.getMethodGetName(), new Object[0])).thenReturn(methodCall);
 		
 		handler = new MockMethodHandler(methodsReturnPromises, methodCallFactory);
 	}

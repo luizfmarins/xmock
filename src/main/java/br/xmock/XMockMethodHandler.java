@@ -22,7 +22,7 @@ abstract class XMockMethodHandler implements MethodHandler {
 	
 	@Override
 	public Object invoke(Object self, Method currentMethod, Method proceedMethod, Object[] args) throws Throwable {
-		MethodCall methodCall = methodCallFactory.create(currentMethod, args);
+		MethodCall methodCall = methodCallFactory.createForRealCall(currentMethod, args);
 		return getReturnPromisse(methodCall).getReturn(currentMethod, args);
 	}
 	

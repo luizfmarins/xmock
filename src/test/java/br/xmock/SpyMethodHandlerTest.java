@@ -71,7 +71,7 @@ public class SpyMethodHandlerTest {
 	
 	@Test
 	public void getReturnPromiseForMethodWithNoPromise() {
-		ReturnPromise promise = handler.getReturnPromisse(new MethodCall(Person.getMethodGetAge(), new Object[0]));
+		ReturnPromise promise = handler.getReturnPromisse(new MethodCall(Person.getMethodGetAge(), ParameterFactory.getInstance().createForRealCall(new Object[0])));
 		
 		assertTrue(promise instanceof DelegateToRealInstanceMethodCall);
 	}
@@ -82,7 +82,7 @@ public class SpyMethodHandlerTest {
 		Mockito.when(returnPromise.getMethodCall()).thenReturn(methodCall);
 		Mockito.when(methodsReturnPromises.get(methodCall)).thenReturn(returnPromise);
 		Mockito.when(returnPromise.getReturn(Person.getMethodGetName(), new Object[0])).thenReturn(MARINS);
-		Mockito.when(methodCallFactory.create(Person.getMethodGetName(), new Object[0])).thenReturn(methodCall);
+		Mockito.when(methodCallFactory.createForRealCall(Person.getMethodGetName(), new Object[0])).thenReturn(methodCall);
 		
 		handler = new SpyMethodHandler(methodsReturnPromises, methodCallFactory);
 	}

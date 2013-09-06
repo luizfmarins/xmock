@@ -2,7 +2,6 @@ package br.xmock;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -71,10 +70,13 @@ public class XMockTest {
 	
 	@Test
 	public void anyObjectSetParameterFactory() {
-		// TODO
+		Person person = XMock.spy(new Person());
+		
+		XMock.doReturn(23).when(person).calculateAgeInYear(XMock.anyInt());
+		
+		assertEquals(Integer.valueOf(23), person.calculateAgeInYear(60));
 	}
 	
-	@Ignore // TODO
 	@Test
 	public void mockMethodWithAnyInt() {
 		Person person = XMock.mock(Person.class);

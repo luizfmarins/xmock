@@ -11,7 +11,7 @@ public class MethodCallMock<T> {
 	
 	MethodCallMock(Object instance, Method methodCalled, Object[] params) {
 		this.instance = instance;
-		this.methodCall = MethodCallFactory.getInstance().create(methodCalled, params);
+		this.methodCall = MethodCallFactory.getInstance().createForMock(methodCalled, params);
 	}
 	
 	public void thenReturn(T value) {

@@ -14,7 +14,7 @@ public class ParameterFactoryTest {
 
 	@Test
 	public void createRealParameter() {
-		List<Parameter> parameter = ParameterFactory.getInstance().create(PARAMETER);
+		List<Parameter> parameter = ParameterFactory.getInstance().createForMock(PARAMETER);
 		
 		assertTrue(assertOnlyOne(parameter) instanceof RealParameter);
 	}
@@ -23,18 +23,35 @@ public class ParameterFactoryTest {
 	public void createAnyObjectParameter() {
 		ParameterFactory.getInstance().setUseAnyObject();
 		
-		List<Parameter> parameter = ParameterFactory.getInstance().create(PARAMETER);
+		List<Parameter> parameter = ParameterFactory.getInstance().createForMock(PARAMETER);
 		
 		assertTrue(assertOnlyOne(parameter) instanceof AnyObjectParameter);
 	}
 	
 	@Test
-	public void createSetUsingRealParameter() {
+	public void createForMockSetUsingRealParameter() {
 		ParameterFactory.getInstance().setUseAnyObject();
 		
-		ParameterFactory.getInstance().create(PARAMETER);
+		ParameterFactory.getInstance().createForMock(PARAMETER);
 		
 		assertFalse(ParameterFactory.getInstance().isUsingAnyObject());
 	}
 	
+	@Test
+	public void createForRealCallDoesNotAlterUsingRealParameter() {
+		ParameterFactory.getInstance().setUseAnyObject();
+		
+		ParameterFactory.getInstance().createForRealCall(PARAMETER);
+		
+		assertTrue(ParameterFactory.getInstance().isUsingAnyObject());
+	}
+	
+	@Test
+	public void createForRealCallDoesNotConsiderUsingRealParameter() {
+		ParameterFactory.getInstance().setUseAnyObject();
+		
+		List<Parameter> parameter = ParameterFactory.getInstance().createForRealCall(PARAMETER);
+		
+		assertTrue(assertOnlyOne(parameter) instanceof RealParameter);
+	}
 }

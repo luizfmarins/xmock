@@ -1,24 +1,37 @@
 package br.xmock;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import br.xmock.fake.classes.Person;
 
+@RunWith(MockitoJUnitRunner.class)
 public class MethodCallFactoryTest {
 
+	@Mock private ParameterFactory parameterFactory;
+	private MethodCallFactory factory;
+	
 	@Test
-	public void newInstance() {
-		Person person = Mockito.mock(Person.class);
-		MethodCallMockFactory.getInstance().setLastInstance(person);
-		MethodCallMockFactory.getInstance().setLastMethodCalled(Person.getMethodGetName());
+	public void createForMockUsesCreateForMockOnParameterFactory() {
+		factory.createForMock(Person.getMethodCalculateAgeInYear(), new Object[] {Integer.valueOf(1)});
 		
-		MethodCallMock<String> methodCall = MethodCallMockFactory.getInstance().create(person.getName());
+		Mockito.verify(parameterFactory).createForMock(new Object[] {Integer.valueOf(1)});
+	}
+	
+	@Test
+	public void createForRealCallUsesCreateForRealCallOnParameterFactory() {
+		factory.createForRealCall(Person.getMethodCalculateAgeInYear(), new Object[] {Integer.valueOf(1)});
 		
-		assertEquals(person, methodCall.getInstance());
-		assertEquals(Person.getMethodGetName(), methodCall.getMethod());
+		Mockito.verify(parameterFactory).createForRealCall(new Object[] {Integer.valueOf(1)});
+	}
+	
+	@Before
+	public void setup() {
+		factory = new MethodCallFactory(parameterFactory);
 	}
 	
 }

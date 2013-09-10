@@ -2,16 +2,10 @@ package br.xmock;
 
 import java.lang.reflect.Method;
 
-import javassist.util.proxy.ProxyObject;
-
 class ActualReturnPromise extends ReturnPromise {
 
 	private final Object promiseOfReturn;
-	private MethodCall methodCall;
-	
-	private ActualReturnPromise(Object promiseOfReturn) {
-		this.promiseOfReturn = promiseOfReturn;
-	}
+	private final MethodCall methodCall;
 	
 	private ActualReturnPromise(Method method, Object promiseOfReturn, Object[] params) {
 		this.promiseOfReturn = promiseOfReturn;
@@ -23,36 +17,15 @@ class ActualReturnPromise extends ReturnPromise {
 		this.methodCall = methodCall;
 	}
 
-	@Override
-	public <T> T when(T mockedObject) {
-		configureReturnPromiseMethodHandler(mockedObject);
-		return mockedObject;
-	}
-
 	public MethodCall getMethodCall() {
 		return methodCall;
 	}
 	
-	public void setMethod(Method method, Object[] params) {
-		this.methodCall = MethodCallFactory.getInstance().createForMock(method, params);
-	}
-
 	@Override
 	public Object getReturn(Method method, Object[] params) {
 		return promiseOfReturn;
 	}
 
-	private <T> void configureReturnPromiseMethodHandler(T mockedObject) {
-		ProxyObject proxyObject = (ProxyObject) mockedObject;
-		
-		SpyMethodHandler spyMethodHandler = (SpyMethodHandler) proxyObject.getHandler();
-		proxyObject.setHandler(new ReturnPromiseMethodHandler(spyMethodHandler, this));
-	}
-	
-	public static ActualReturnPromise newInstance(Object promiseOfReturn) {
-		return new ActualReturnPromise(promiseOfReturn);
-	}
-	
 	public static ActualReturnPromise newInstance(MethodCall methodCall, Object promiseOfReturn) {
 		return new ActualReturnPromise(methodCall, promiseOfReturn);
 	}

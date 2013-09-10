@@ -17,6 +17,7 @@ import br.xmock.fake.classes.Person;
 public class ActualReturnPromiseTest {
 
 	@Mock private Person person;
+	@Mock private MethodCall methodCall;
 	
 	private ActualReturnPromise returnPromise;
 	
@@ -39,7 +40,7 @@ public class ActualReturnPromiseTest {
 	@Before
 	public void setup() {
 		Mockito.when(person.getName()).thenReturn("Marins");
-		returnPromise = ActualReturnPromise.newInstance(PROMISE);
+		returnPromise = ActualReturnPromise.newInstance(methodCall, PROMISE);
 	}
 	
 	

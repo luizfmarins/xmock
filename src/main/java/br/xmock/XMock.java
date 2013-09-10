@@ -13,8 +13,8 @@ public class XMock {
 		return createMock(classToMock);
 	}
 	
-	public static ReturnPromise doReturn(Object promiseOfReturn) {
-		return ActualReturnPromise.newInstance(promiseOfReturn);
+	public static ReturnPromiseCreator doReturn(Object promiseOfReturn) {
+		return ReturnPromiseCreator.newInstance(promiseOfReturn);
 	}
 	
 	public static <T> MethodCallMock<T> when(T object) {

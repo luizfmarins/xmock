@@ -8,11 +8,11 @@ import javassist.util.proxy.ProxyObject;
 class ReturnPromiseMethodHandler implements MethodHandler {
 
 	private final SpyMethodHandler spyMethodHandler;
-	private final ActualReturnPromise returnPromise;
+	private final ReturnPromiseCreator returnPromiseCreator;
 	
-	public ReturnPromiseMethodHandler(SpyMethodHandler spyMethodHandler, ActualReturnPromise returnPromise) {
+	public ReturnPromiseMethodHandler(SpyMethodHandler spyMethodHandler, ReturnPromiseCreator returnPromisseCreator) {
 		this.spyMethodHandler = spyMethodHandler;
-		this.returnPromise = returnPromise;
+		this.returnPromiseCreator = returnPromisseCreator;
 	}
 	
 	@Override
@@ -23,7 +23,7 @@ class ReturnPromiseMethodHandler implements MethodHandler {
 	}
 
 	private void configureReturnPromisseForSpyMethodHandler(Method currentMethod, Object[] args) {
-		returnPromise.setMethod(currentMethod, args);
+		ActualReturnPromise returnPromise = returnPromiseCreator.create(currentMethod, args);
 		spyMethodHandler.addReturnPromise(returnPromise);
 	}
 

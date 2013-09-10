@@ -15,6 +15,7 @@ import br.xmock.fake.classes.Person;
 public class ReturnPromiseMethodHandlerTest {
 
 	@Mock private SpyMethodHandler spyMethodHandler;
+	@Mock private ReturnPromiseCreator returnPromiseCreator;
 	@Mock private ActualReturnPromise returnPromise;
 	
 	private ReturnPromiseMethodHandler handler;
@@ -29,16 +30,17 @@ public class ReturnPromiseMethodHandlerTest {
 	}
 	
 	@Test
-	public void invokeSetTheMethodInTheReturnPromisse() {
+	public void invokeCallsCreateOnReturnPromiseCreator() {
 		ProxyObject person = Mockito.mock(ProxyObject.class);
 		
 		handler.invoke(person, Person.getMethodGetName(),null, new Object[0]);
 		
-		Mockito.verify(returnPromise).setMethod(Person.getMethodGetName(), new Object[0]);
+		Mockito.verify(returnPromiseCreator).create(Person.getMethodGetName(), new Object[0]);
 	}
 	
 	@Before
 	public void setup() {
-		handler = new ReturnPromiseMethodHandler(spyMethodHandler, returnPromise);
+		handler = new ReturnPromiseMethodHandler(spyMethodHandler, returnPromiseCreator);
+		Mockito.when(returnPromiseCreator.create(Person.getMethodGetName(), new Object[0])).thenReturn(returnPromise);
 	}
 }

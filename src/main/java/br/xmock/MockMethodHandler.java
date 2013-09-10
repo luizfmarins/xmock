@@ -21,7 +21,7 @@ public class MockMethodHandler extends XMockMethodHandler {
 	@Override
 	protected ReturnPromise getReturnPromisse(MethodCall method) {
 		ReturnPromise promisse = methodsReturnPromises.get(method);
-		return promisse != null ? promisse : NoReturnPromisse.newInstance();
+		return promisse != null ? promisse : NoReturnPromise.newInstance();
 	}
 	
 	private void notifyMethodCallFactory(Object self, Method currentMethod, Object[] args) {

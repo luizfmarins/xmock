@@ -72,4 +72,26 @@ public class MethodCallTest {
 		
 		assertTrue(call1.equals(call2));
 	}
+	
+	@Test
+	public void hashCodeDoesNotConsiderTheParameterList() {
+		MethodCall call1 = new MethodCall(Person.getMethodGetAge(), parameterFactory.createAnyObjectParameters(new Object[] {1}));
+		MethodCall call2 = new MethodCall(Person.getMethodGetAge(), parameterFactory.createRealParameters(new Object[] {2}));
+		
+		int hashCode1 = call1.hashCode();
+		int hashCode2 = call2.hashCode();
+		
+		assertTrue(hashCode1 == hashCode2);
+	}
+	
+	@Test
+	public void hashCodeDoesConsiderMethod() {
+		MethodCall call1 = new MethodCall(Person.getMethodGetAge(), parameterFactory.createAnyObjectParameters(new Object[] {1}));
+		MethodCall call2 = new MethodCall(Person.getMethodCalculateAgeInYear(), parameterFactory.createAnyObjectParameters(new Object[] {1}));
+		
+		int hashCode1 = call1.hashCode();
+		int hashCode2 = call2.hashCode();
+		
+		assertFalse(hashCode1 == hashCode2);
+	}
 }

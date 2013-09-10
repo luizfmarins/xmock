@@ -2,6 +2,7 @@ package br.xmock;
 
 import java.lang.reflect.Method;
 
+
 import javassist.util.proxy.ProxyObject;
 
 public class ReturnPromiseCreator {

@@ -14,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import br.xmock.ActualReturnPromise;
 import br.xmock.DelegateToRealInstanceMethodCall;
 import br.xmock.ReturnPromise;
 import br.xmock.SpyMethodHandler;

@@ -4,14 +4,16 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+
 import javassist.util.proxy.MethodHandler;
 
 abstract class XMockMethodHandler implements MethodHandler {
 	
-	protected Map<MethodCall, ReturnPromise> methodsReturnPromises = new HashMap<MethodCall, ReturnPromise>();
+	protected final Map<MethodCall, ReturnPromise> methodsReturnPromises;
 	private final MethodCallFactory methodCallFactory;
 	
 	protected XMockMethodHandler() {
+		methodsReturnPromises = new HashMap<MethodCall, ReturnPromise>();
 		methodCallFactory = MethodCallFactory.getInstance();
 	}
 	

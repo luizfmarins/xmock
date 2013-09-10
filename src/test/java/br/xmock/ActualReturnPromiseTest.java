@@ -10,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import br.xmock.ActualReturnPromise;
 import br.xmock.fake.classes.Person;
 
 @RunWith(MockitoJUnitRunner.class)

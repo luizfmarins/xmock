@@ -2,12 +2,13 @@ package br.xmock;
 
 import java.lang.reflect.Method;
 
+
 import javassist.util.proxy.ProxyObject;
 
 public class MethodCallMock<T> {
 
 	private final Object instance;
-	private MethodCall methodCall;
+	private final MethodCall methodCall;
 	
 	MethodCallMock(Object instance, Method methodCalled, Object[] params) {
 		this.instance = instance;

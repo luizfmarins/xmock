@@ -2,6 +2,7 @@ package br.xmock;
 
 import javassist.util.proxy.MethodHandler;
 import javassist.util.proxy.ProxyFactory;
+import javassist.util.proxy.ProxyObject;
 
 public class XMock {
 	
@@ -21,9 +22,26 @@ public class XMock {
 		return MethodCallMockFactory.getInstance().create(object);
 	}
 	
+	public static <T> T verify(T object) {
+		return verify(object, 1);
+	}
+	
+	public static <T> T verify(T object, int times) {
+		ProxyObject proxy = (ProxyObject) object;
+		XMockMethodHandler oldHandler = (XMockMethodHandler) proxy.getHandler();
+		
+		proxy.setHandler(new VerifyMethodHandler(oldHandler, times));
+		
+		return object;
+	}
+	
 	public static Integer anyInt() {
 		ParameterFactory.getInstance().setUseAnyObject();
 		return 0;
+	}
+	
+	public static int times(int i) {
+		return i;
 	}
 	
 	private static <T> T createSpiedObject(T object) {

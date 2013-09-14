@@ -1,5 +1,7 @@
 package br.xmock;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Map;
 
 import org.junit.Before;
@@ -18,19 +20,45 @@ public class XMockMethodHandlerTest {
 	@Mock private MethodCallFactory methodCallFactory;
 	@Mock private ReturnPromise returnPromisse;
 	@Mock private Person person;
+	private XMockMethodHandlerStub handler;
 	
 	@Test
 	public void invokeCallsCreateForRealCallOnMethodFactory() throws Throwable {
-		XMockMethodHandlerStub handler = new XMockMethodHandlerStub(methodsReturnPromises, methodCallFactory);
-		
 		handler.invoke(person, Person.getMethodGetAge(), null, new Object[]{});
 		
-		Mockito.verify(methodCallFactory).createForRealCall(Person.getMethodGetAge(), new Object[]{});
+		Mockito.verify(methodCallFactory).createForRealCall(Person.getMethodGetAge(), new Object[0]);
+	}
+	
+	@Test
+	public void getTimesCalledWithNoCall() throws Throwable {
+		int timesCalled = handler.getTimesCalled(Person.getMethodGetAge(), new Object[0]);
+		
+		assertEquals(0, timesCalled);
+	}
+	
+	@Test
+	public void getTimesCalledWithOneCall() throws Throwable {
+		handler.invoke(person, Person.getMethodGetAge(), null, new Object[0]);
+		
+		int timesCalled = handler.getTimesCalled(Person.getMethodGetAge(), new Object[0]);
+		
+		assertEquals(1, timesCalled);
+	}
+	
+	@Test
+	public void getTimesCalledWithTwoCall() throws Throwable {
+		handler.invoke(person, Person.getMethodGetAge(), null, new Object[0]);
+		handler.invoke(person, Person.getMethodGetAge(), null, new Object[0]);
+		
+		int timesCalled = handler.getTimesCalled(Person.getMethodGetAge(), new Object[0]);
+		
+		assertEquals(2, timesCalled);
 	}
 	
 	@Before
 	public void setup() {
 		Mockito.when(methodsReturnPromises.get(Mockito.anyObject())).thenReturn(returnPromisse);
+		handler = new XMockMethodHandlerStub(methodsReturnPromises, methodCallFactory);
 	}
 	
 	private static class XMockMethodHandlerStub extends XMockMethodHandler {
